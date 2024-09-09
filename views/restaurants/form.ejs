@@ -1,0 +1,61 @@
+<%- include('../../components/header.ejs') %>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-6 col-md-8 col-sm-10 col-xxl-4">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Formulario de restaurants</h5>
+                        <form class="needs-validation" method="post" action="" enctype="multipart/form-data">
+                            <% if (errors) { %>
+                                <div class="alert alert-warning">
+                                    <%= errors.message %>
+                                </div>
+                            <% } %>
+                            <div class="mt-2 has-validation">
+                                <label>Nombre</label>
+                                <input required class="form-control" type="text" name="name" placeholder="Nombre" value="<%= restaurant?.name %>">
+                                <% if (errors?.name) { %>
+                                    <div class="error-label">Por favor ingrese un nombre</div>
+                                <% } %>
+                            </div>
+                            <div class="mt-2">
+                                <label>Descripción</label>
+                                <input required class="form-control" type="text" name="description" placeholder="Descripción" value="<%= restaurant?.description %>">
+                                <% if (errors?.description) { %>
+                                    <div class="error-label">Por favor ingrese una descripción</div>
+                                <% } %>
+                            </div>
+                            <div class="mt-2">
+                                <label>Ciudad</label>
+                                <input required class="form-control" type="text" name="address" placeholder="Ciudad" value="<%= restaurant?.address %>">
+                                <% if (errors?.address) { %>
+                                    <div class="error-label">Por favor ingrese una ciudad</div>
+                                <% } %>
+                            </div>
+                            <div class="mt-2">
+                                <% if (restaurant && restaurant.id) { %>
+                                    <img class="mt-2 img-fluid" src="/images/profile/<%= restaurant.id %>.jpg" alt="Foto de perfil" />
+                                <% } else { %>
+                                    <img class="mt-2 img-fluid" src="/images/default-profile.jpg" alt="Foto de perfil"/>
+                                <% } %>
+                            </div>
+                            <div class="mt-2">
+                                <label>Foto de Perfil</label>
+                                <input class="form-control" type="file" name="image" />
+                                <% if (errors?.image) { %>
+                                    <div class="error-label">Por favor seleccione una imagen</div>
+                                <% } %>
+                            </div>
+                            <div class="mt-2">
+                                <input class="btn btn-primary" type="submit" value="Enviar">
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../components/footer.ejs') %>

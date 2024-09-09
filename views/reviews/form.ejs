@@ -1,0 +1,106 @@
+<%- include('../../components/header.ejs') %>
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xxl-4">
+            <div class="card mt-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Formulario de Review</h5>
+                    <form class="needs-validation" method="post" action="">
+                        <% if (errors) { %>
+                            <div class="alert alert-warning">
+                                <%= errors.message %>
+                            </div>
+                        <% } %>
+
+                        <!-- Título -->
+                        <div class="mt-2 has-validation">
+                            <label for="title">Título</label>
+                            <input required class="form-control" type="text" name="title" id="title"
+                                placeholder="Título de la review" value="<%= review && review.title %>">
+                            <% if (errors?.title) { %>
+                                <div class="error-label">
+                                    Por favor ingrese un título
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="mt-2">
+                            <label for="description">Descripción</label>
+                            <textarea required class="form-control" name="description" id="description" rows="4"
+                                placeholder="Descripción de la review"><%= review && review.description %></textarea>
+                            <% if (errors?.description) { %>
+                                <div class="error-label">
+                                    Por favor ingrese una descripción
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Rating (Estrellas usando fieldset) -->
+                        <div class="mt-2">
+                            <label for="rating">Rating</label>
+                            <fieldset class="rating">
+                                <% for (let i = 5; i >= 1; i--) { %>
+                                    <input type="radio" id="star<%= i %>" name="rating" value="<%= i %>" 
+                                        <%= review && review.rating == i ? "checked" : "" %> />
+                                    <label for="star<%= i %>" class="star">
+                                        <i class="fa fa-star"></i>
+                                    </label>
+                                <% } %>
+                            </fieldset>
+                            <% if (errors?.rating) { %>
+                                <div class="error-label">
+                                    Por favor seleccione una valoración
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Burger (Select bloqueado o editable) -->
+                        <div class="mt-2">
+                            <label for="burger">Hamburguesa</label>
+                            <% if (isBlock) { %>
+                                
+                                <input type="hidden" name="burgerId" value="<%= burger.id %>" />
+
+                                <p><%= burger.name %></p>
+                            <% } else { %>
+                                <select name="burgerId" id="burgerId" class="form-select">
+                                    <% burgers.forEach(burger => { %>
+                                        <option value="<%= burger.id %>" <%= review && review.burgerId == burger.id ? "selected" : "" %>>
+                                            <%= burger.name %>
+                                        </option>
+                                    <% }); %>
+                                </select>
+                            <% } %>
+                        </div>
+
+                        <!-- User (Select bloqueado o editable) -->
+                        <div class="mt-2">
+                            <label for="user">Usuario</label>
+                            <% if (isBlock) { %>
+                                <input type="hidden" name="userId" value="<%= user.id %>" />
+                                <p><%= user.username %></p>
+                            <% } else { %>
+                                <select name="userId" id="userId" class="form-select">
+                                    <% users.forEach(function(user) { %>
+                                        <option value="<%= user.id %>" <%= review && review.userId == user.id ? "selected" : "" %>>
+                                            <%= user.username %>
+                                        </option>
+                                    <% }); %>
+                                </select>
+                            <% } %>
+                        </div>
+
+                        <!-- Botón Enviar -->
+                        <div class="mt-3">
+                            <input class="btn btn-primary w-100" type="submit" value="Enviar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../components/footer.ejs') %>

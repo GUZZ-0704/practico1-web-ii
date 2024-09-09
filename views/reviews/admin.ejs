@@ -1,0 +1,64 @@
+<%- include('../../components/header.ejs') %>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h3>Lista de Reseñas</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Título</th>
+                                    <th>Descripción</th>
+                                    <th>Rating</th>
+                                    <th>Hamburguesa</th>
+                                    <th>Usuario</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% reviews.forEach(review => { %>
+                                    <tr>
+                                        <td><%= review.id %></td>
+                                        <td><%= review.title %></td>
+                                        <td><%= review.description %></td>
+                                        <td>
+                                            <fieldset class="rating" style="border: none; padding: 0; font-size: small;">
+                                                <% for (let i = 5; i >= 1; i--) { %>
+                                                    <input type="radio" id="star<%= review.id %>_<%= i %>" name="rating<%= review.id %>" value="<%= i %>"
+                                                        <%= review.rating == i ? "checked" : "" %> disabled />
+                                                    <label for="star<%= review.id %>_<%= i %>" class="star">
+                                                        <i class="fa fa-star" ></i>
+                                                    </label>
+                                                <% } %>
+                                            </fieldset>
+                                        </td>
+                                        <td><%= review.burger?.name %></td> <!-- Aquí asumiendo que la relación está correctamente cargada -->
+                                        <td><%= review.user?.username %></td> <!-- Aquí asumiendo que la relación con el usuario está cargada -->
+                                        <td>
+                                            <a class="btn btn-primary" href="admin/reviews/<%= review.id %>/edit">Editar</a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="admin/reviews/<%= review.id %>/delete"
+                                                onsubmit="return confirm('¿Está seguro que desea eliminar esta reseña?')">
+                                                <input class="btn btn-danger" type="submit" value="Eliminar">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../components/footer.ejs') %>

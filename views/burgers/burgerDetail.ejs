@@ -1,0 +1,52 @@
+<%- include('../../components/header.ejs') %>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <img src="/images/profile/<%= burger.image %>" class="card-img-top" alt="<%= burger.name %>">
+                <div class="card-body">
+                    <h3 class="card-title text-center"><%= burger.name %></h3>
+                    <p class="text-muted text-center"><strong>Restaurant:</strong> <%= burger.restaurantName %></p>
+                    <p class="text-center"><strong>Price:</strong> $<%= Number(burger.price).toFixed(2) %></p>
+                    <p class="text-justify"><%= burger.description %></p>
+                    <a href="/restaurants/<%= burger.restaurantId %>" class="btn btn-outline-primary w-100 mt-3">Go to Restaurant</a>
+
+                    <!-- Botón Comer -->
+                    <a href="/reviews/<%= burger.id %>/<%= user.id %>" class="btn btn-success w-100 mt-3">Comer</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Reviews</h4>
+                    <hr>
+                    <% if (reviews && reviews.length > 0) { %>
+                        <div class="list-group">
+                            <% reviews.forEach(function(review) { %>
+                                <div class="list-group-item">
+                                    <h5 class="mb-1">
+                                        <%= review.user.username %> 
+                                        <span class="text-muted">- 
+                                            <% for (let i = 1; i <= 5; i++) { %>
+                                                <i class="fa <%= review.rating >= i ? 'fa-star' : 'fa-star-o' %> text-warning"></i>
+                                            <% } %>
+                                        </span>
+                                    </h5>
+                                    <p class="mb-1"><%= review.description %></p>
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% } else { %>
+                        <p class="text-center text-muted">No reviews available for this burger.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<%- include('../../components/footer.ejs') %>

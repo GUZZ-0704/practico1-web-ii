@@ -1,0 +1,70 @@
+body {
+    background-color: #FAFAFA; /* Blanco Cremoso */
+    color: #616161; /* Gris Oscuro */
+}
+
+.container{
+    height: 70vh;
+}
+
+
+.row{
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-img-container {
+    height: 200px; /* Ajusta según sea necesario */
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-body {
+    flex: 1;
+}
+
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    font-size: 2em;
+    margin: 0;
+    color: transparent;
+    position: relative;
+}
+
+.rating label:before {
+    content: '\f005'; /* Unicode de Font Awesome para fa-star */
+    font-family: FontAwesome;
+    color: #ddd;
+}
+
+.rating input:checked ~ label:before {
+    color: #f5c518;
+}
+
+.rating input:checked ~ input:checked ~ label:before {
+    color: #f5c518;
+}
+
